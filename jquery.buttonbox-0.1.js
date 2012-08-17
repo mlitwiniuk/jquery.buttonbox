@@ -13,10 +13,10 @@
       }
       var toggled = obj.is(':checked') ? 'active' : '';
       if(obj.attr('type') == 'checkbox'){
-        var btn = $('<button class="btn '+(obj.attr('class')||'')+' '+toggled+'" id="btn_'+obj.attr('id')+'" data-toggle="button" data-input="'+obj.attr('id')+'">'+label+'</button>');
+        var btn = $('<button class="btn '+(obj.attr('class')||'')+' '+toggled+'" id="btn_'+obj.attr('id')+'" data-toggle="button" type="button" data-input="'+obj.attr('id')+'">'+label+'</button>');
         btn.insertAfter(obj);
-        btn.button();
         obj.hide();
+        btn.button();
         btn.click(function(){
           var $this = $(this);
           var $obj = $('#'+$this.data('input'));
