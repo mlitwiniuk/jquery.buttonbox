@@ -1,6 +1,7 @@
 (function($){
   $.fn.buttonbox = function(options) {
     var defaults = {
+      callback: null
     };
     var options = $.extend(defaults, options);
 
@@ -17,15 +18,21 @@
         btn.insertAfter(obj);
         obj.hide();
         btn.button();
-        btn.click(function(){
+        btn.click(function(e){
           var $this = $(this);
-          var $obj = $('#'+$this.data('input'));
-          // toggled button on click button still has class 'active'
-          if(!$this.hasClass('active')){
-            $obj.attr('checked', 'checked');
-          }else{
-            $obj.attr('checked', null);
+          var is_click = !$this.hasClass('active');
+          var callback_ok = options.callback===null || options.callback($this, is_click);
+          if(callback_ok){
+            var $obj = $('#'+$this.data('input'));
+            // toggled button on click still has class 'active'
+            if(is_click){
+              $obj.attr('checked', 'checked');
+            }else{
+              $obj.attr('checked', null);
+            }
           }
+          if(!callback_ok) e.preventDefault();
+          return callback_ok;
         });
       }
     }

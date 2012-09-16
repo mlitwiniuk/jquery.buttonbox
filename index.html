@@ -17,20 +17,32 @@
 
   <body>
     <div class="container">
-      <div class="row">
+      <div class="row buttonboxes">
         <h3>Labels and checkboxes side by side</h3>
         
         <label for="cb_1">checbox one</label><input type="checkbox" id="cb_1" name="cb_1" value="1" />
         <label for="cb_2">checbox two</label><input type="checkbox" id="cb_2" name="cb_2" value="2" checked="checked" />
         <label for="cb_3">three</label><input type="checkbox" id="cb_3" name="cb_3" value="3" />
+        <label for="cb_4">four</label><input type="checkbox" id="cb_4" name="cb_4" value="4" />
+        <label for="cb_5">five</label><input type="checkbox" id="cb_5" name="cb_5" value="5" />
       </div>
       <hr>
-      <div class="row">
+      <div class="row buttonboxes">
         <h3>Labels and checkboxes side by side with additional class</h3>
         
         <label for="acb_1">checbox one</label><input type="checkbox" id="acb_1" name="acb_1" value="1" class="btn-mini" />
         <label for="acb_2">checbox two</label><input type="checkbox" id="acb_2" name="acb_2" value="2" checked="checked" class="btn-mini btn-success" />
         <label for="acb_3">three</label><input type="checkbox" id="acb_3" name="acb_3" value="3" class="btn-mini btn-danger" />
+      </div>
+      <hr>
+      <div class="row buttonboxes_callback">
+        <h3>With callback (not possible to check more than 3 at once)</h3>
+        
+        <label for="ccb_1">checbox one</label><input type="checkbox" id="ccb_1" name="ccb_1" value="1" />
+        <label for="ccb_2">checbox two</label><input type="checkbox" id="ccb_2" name="ccb_2" value="2" />
+        <label for="ccb_3">three</label><input type="checkbox" id="ccb_3" name="ccb_3" value="3" />
+        <label for="ccb_4">four</label><input type="checkbox" id="ccb_4" name="ccb_4" value="4" />
+        <label for="ccb_5">five</label><input type="checkbox" id="ccb_5" name="ccb_5" value="5" />
       </div>
       <hr>
     </div>
@@ -39,10 +51,16 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-1.8.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="jquery.buttonbox-0.1.js"></script>
+    <script src="jquery.buttonbox-0.2.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('.row input').buttonbox();
+        $('.buttonboxes input').buttonbox();
+        var check_for_three = function(elem, click_on){
+          var $this = elem;
+          var parent = $this.parents('.buttonboxes_callback');
+          return !click_on || parent.children('input[type="checkbox"]:checked').length<3;
+        }
+        $('.buttonboxes_callback input').buttonbox({callback: check_for_three});
       });
     </script>
   </body>
